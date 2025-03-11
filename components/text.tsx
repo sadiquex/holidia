@@ -27,7 +27,7 @@ const variantStyles: Record<TypographyVariant, string> = {
   'caption-primary': 'text-sm text-primary font-medium',
 };
 
-const CustomText = ({ variant = 'title', className, children, ...props }: TextComponentProps) => {
+const CustomText = ({ variant = 'body', className, children, ...props }: TextComponentProps) => {
   const textStyle = twMerge('text-black', variantStyles[variant], className);
 
   return (

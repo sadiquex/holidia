@@ -1,4 +1,6 @@
-export const PROPERTIES = [
+import { Property } from '../types';
+
+export const PROPERTIES: Property[] = [
   {
     id: 'prop_543ce3c0-96c5-4031-87a4-3dee73c7cf82',
     name: 'Beachfront Cottage',

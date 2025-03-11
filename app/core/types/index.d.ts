@@ -1,5 +1,5 @@
-interface Property {
-  id: number;
+export interface Property {
+  id: string;
   name: string;
   description: string;
   price_per_night: number;
@@ -15,11 +15,11 @@ interface Property {
   latitude: number;
   latitude_delta: number;
   longitude_delta: number;
-  is_favourite: boolean;
+  is_favorite: boolean;
   rating?: number;
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   created_at: string;
@@ -30,7 +30,7 @@ interface User {
   avatar: string;
 }
 
-interface Booking {
+export interface Booking {
   id: string;
   created_at: string;
   updated_at: string;
@@ -49,7 +49,7 @@ interface Booking {
   payment_status: 'pending' | 'succeeded';
 }
 
-interface ICartItem {
+export interface ICartItem {
   id: string;
   name: string;
   price_per_night: number;
