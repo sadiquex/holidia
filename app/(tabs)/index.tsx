@@ -4,25 +4,22 @@ import { PROPERTIES } from '../core/constants/data';
 
 import { Container } from '~/components/container';
 import Card from '~/components/home/card';
-import CustomText from '~/components/text';
+import Discovery from '~/components/home/discovery';
+
+import MainHeader from '~/components/home/main-header';
 
 export default function Home() {
   return (
     <Container>
-      <CustomText variant="title">Home</CustomText>
+      <MainHeader />
 
       <FlatList
         data={PROPERTIES}
         renderItem={({ item }) => <Card property={item} />}
         keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<Discovery properties={PROPERTIES} />}
       />
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-});

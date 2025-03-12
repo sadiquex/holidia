@@ -1,13 +1,11 @@
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { BlurView } from 'expo-blur';
 import { Pressable, View } from 'react-native';
 
-import CustomImage from '../image';
+import CarouselItem from './carousel-item';
 
 import { Property } from '~/app/core/types';
 import Text from '~/components/text';
-import Ionicons from '@expo/vector-icons/Ionicons';
-
-import { BlurView } from 'expo-blur';
-import CarouselItem from './carousel-item';
 
 type Props = {
   property: Property;
@@ -23,11 +21,11 @@ const Card = ({ property }: Props) => {
         <View>
           <BlurView
             intensity={100}
-            className="absolute bottom-8 left-8 flex-row items-center justify-center overflow-hidden rounded-2xl p-2">
+            className="absolute bottom-4 left-4 flex-row items-center justify-center overflow-hidden rounded-2xl p-2">
             <Ionicons name="star" size={24} color="#facc15" />
             <Text className="mx-2 text-white">5</Text>
           </BlurView>
-          <Pressable className="absolute bottom-8 right-8">
+          <Pressable className="absolute bottom-4 right-4">
             <BlurView intensity={100} className="overflow-hidden rounded-2xl p-2">
               <Ionicons
                 name={property.is_favorite ? 'heart' : 'heart-outline'}
