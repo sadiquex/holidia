@@ -1,11 +1,10 @@
-import { View, Text } from 'react-native';
-
 import { Container } from '~/components/container';
+import Header from '~/components/header';
 
 const Bookings = () => {
   return (
     <Container>
-      <Text>Bookings</Text>
+      <Header title="Bookings" />
     </Container>
   );
 };

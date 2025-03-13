@@ -458,7 +458,7 @@ export const FAVORITES = [
     latitude: 30.0381,
     latitude_delta: 0.0421,
     longitude_delta: 0.0922,
-    is_favorite: false,
+    is_favorite: true,
     widthRatio: 1,
     heightRatio: 1,
   },
