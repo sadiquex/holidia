@@ -6,9 +6,9 @@ import { View } from 'react-native';
 
 import CustomImage from '../image';
 
+import { useImageColors } from '~/app/core/hooks/use-image-colors';
 import { Booking } from '~/app/core/types';
 import Text from '~/components/text';
-import { useImageColors } from '~/app/core/hooks/use-image-colors';
 
 type Props = {
   booking: Booking;

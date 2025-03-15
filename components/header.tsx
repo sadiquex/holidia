@@ -6,8 +6,12 @@ import Text from '~/components/text';
 
 type Props = {
   title: string;
+  headerAction?: {
+    name: keyof typeof Ionicons.glyphMap;
+    onPress: () => void;
+  };
 };
-const Header = ({ title }: Props) => {
+const Header = ({ title, headerAction }: Props) => {
   const router = useRouter();
 
   return (
@@ -20,6 +24,12 @@ const Header = ({ title }: Props) => {
           {title}
         </Text>
       </View>
+
+      {headerAction && (
+        <Pressable onPress={headerAction.onPress}>
+          <Ionicons name={headerAction.name} size={24} />
+        </Pressable>
+      )}
     </View>
   );
 };

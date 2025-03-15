@@ -28,6 +28,7 @@ export interface User {
   password: string;
   properties: Property[] | null;
   avatar: string;
+  bookings: Booking[] | null;
 }
 
 export interface Booking {
