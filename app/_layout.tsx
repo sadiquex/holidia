@@ -24,6 +24,7 @@ export default function RootLayout() {
     <Providers>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="search" options={{ headerShown: false }} />
       </Stack>
     </Providers>
   );

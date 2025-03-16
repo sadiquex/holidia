@@ -1,5 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BlurView } from 'expo-blur';
+import { useRouter } from 'expo-router';
 import { SquircleButton, SquircleView } from 'expo-squircle-view';
 import { FlatList, Pressable, View } from 'react-native';
 
@@ -12,6 +13,7 @@ type Props = {
   properties: Property[];
 };
 const Discovery = ({ properties }: Props) => {
+  const router = useRouter();
   return (
     <>
       <SquircleButton
@@ -20,6 +22,9 @@ const Discovery = ({ properties }: Props) => {
         cornerSmoothing={100}
         preserveSmoothing
         borderRadius={24}
+        onPress={() => {
+          router.navigate('/search');
+        }}
         style={{
           paddingVertical: 16,
           paddingHorizontal: 24,
