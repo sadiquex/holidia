@@ -56,7 +56,14 @@ const Discovery = ({ properties }: Props) => {
                 borderRadius: 24,
               }}>
               <BlurView intensity={40} tint="dark">
-                <Pressable className="flex-row items-center justify-between p-4">
+                <Pressable
+                  className="flex-row items-center justify-between p-4"
+                  onPress={() => {
+                    router.navigate({
+                      pathname: '/properties/[id]',
+                      params: { id: item.id },
+                    });
+                  }}>
                   <View>
                     <Text variant="caption" className="text-white">
                       {item.name}
