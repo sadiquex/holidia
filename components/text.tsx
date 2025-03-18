@@ -9,7 +9,8 @@ type TypographyVariant =
   | 'button'
   | 'display'
   | 'caption-primary'
-  | 'body-primary';
+  | 'body-primary'
+  | 'subtitle-primary';
 
 interface TextComponentProps extends TextProps {
   className?: string;
@@ -19,6 +20,7 @@ interface TextComponentProps extends TextProps {
 const variantStyles: Record<TypographyVariant, string> = {
   title: 'text-2xl font-bold',
   subtitle: 'text-xl font-semibold',
+  'subtitle-primary': 'text-xl font-semibold text-primary',
   body: 'text-base',
   caption: 'text-sm font-medium',
   button: 'text-xl text-primary font-semibold text-white text-center',
