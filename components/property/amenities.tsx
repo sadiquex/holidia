@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { View } from 'react-native';
-import { colours } from '~/app/core/theme/colours';
 
+import { colours } from '~/app/core/theme/colours';
 import Text from '~/components/text';
 
 export type AmenityType =

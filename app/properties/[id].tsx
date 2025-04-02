@@ -10,6 +10,7 @@ import Text from '~/components/text';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colours } from '../core/theme/colours';
 import Amenities from '~/components/property/amenities';
+import { SquircleButton } from 'expo-squircle-view';
 
 type Props = object;
 const PropertyDetails = ({}: Props) => {
@@ -45,6 +46,20 @@ const PropertyDetails = ({}: Props) => {
         </Text>
         <Amenities amenities={property.amenities} />
       </ScrollView>
+
+      <View className="mx-4 flex flex-row items-center justify-center">
+        <SquircleButton
+          className="flex-grow"
+          borderRadius={16}
+          backgroundColor={colours.PRIMARY}
+          style={{
+            paddingVertical: 12,
+          }}>
+          <Text variant="button" className="text-center">
+            Book now
+          </Text>
+        </SquircleButton>
+      </View>
     </Container>
   );
 };
