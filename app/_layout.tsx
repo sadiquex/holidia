@@ -3,6 +3,7 @@ import '../global.css';
 import { Stack } from 'expo-router';
 import { ReactNode } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModal, BottomSheetView, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 import theme from './core/theme/use-theme-config';
 
@@ -13,8 +14,10 @@ export const unstable_settings = {
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <GestureHandlerRootView>
-      <ThemeProvider value={theme}>{children}</ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <BottomSheetModalProvider>
+        <ThemeProvider value={theme}>{children}</ThemeProvider>
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 };

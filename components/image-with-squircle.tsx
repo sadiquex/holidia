@@ -1,5 +1,4 @@
 import { Image, useImage } from '@shopify/react-native-skia';
-import React from 'react';
 import { View, Text } from 'react-native';
 import Squircle from 'react-native-squircle';
 
