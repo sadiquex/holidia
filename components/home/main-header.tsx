@@ -1,11 +1,9 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Image, View } from 'react-native';
+
 import { colours } from '~/app/core/theme/colours';
 
-import Text from '~/components/text';
-
-type Props = {};
-const MainHeader = ({}: Props) => {
+const MainHeader = () => {
   return (
     <View className="px-4 pb-4">
       <View className="flex-row items-center justify-between">

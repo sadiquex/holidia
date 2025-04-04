@@ -30,7 +30,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.Holidia"
@@ -41,6 +43,14 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.Holidia"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "aa1b224b-4649-4f8e-ae28-fb6b39884c88"
+      }
     }
   }
 }

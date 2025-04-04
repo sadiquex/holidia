@@ -1,11 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList } from 'react-native';
 
 import { PROPERTIES } from '../core/constants/data';
 
 import { Container } from '~/components/container';
 import Card from '~/components/home/card';
 import Discovery from '~/components/home/discovery';
-
 import MainHeader from '~/components/home/main-header';
 
 export default function Home() {

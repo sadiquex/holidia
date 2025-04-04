@@ -84,13 +84,13 @@ const PropertyDetails = () => {
         ref={bottomSheetRef}
         style={{ flex: 1, zIndex: 100 }}
         backdropComponent={renderBackdrop}>
-        <BottomSheetView>
+        <BottomSheetView style={{ flex: 1 }}>
           <Text variant="body" className="text-center">
             Price
           </Text>
 
-          <BottomSheetView style={{ flex: 1 }}>
-            {/* <Calendar
+          <BottomSheetView style={{ flex: 1, minHeight: 300 }}>
+            <Calendar
               calendarActiveDateRanges={[
                 {
                   startId: selectedDate,
@@ -100,18 +100,6 @@ const PropertyDetails = () => {
               calendarMonthId={today}
               onCalendarDayPress={setSelectedDate}
               // SafeFlashList
-            /> */}
-
-            <Calendar.List
-              CalendarScrollComponent={SafeFlashList}
-              calendarActiveDateRanges={[
-                {
-                  startId: selectedDate,
-                  endId: selectedDate,
-                },
-              ]}
-              calendarInitialMonthId={today}
-              onCalendarDayPress={setSelectedDate}
             />
           </BottomSheetView>
         </BottomSheetView>

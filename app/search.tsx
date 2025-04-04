@@ -2,10 +2,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import { FlatList, TextInput, View } from 'react-native';
 
+import { PROPERTIES } from './core/constants/data';
+
 import { Container } from '~/components/container';
 import Header from '~/components/header';
-import Text from '~/components/text';
-import { PROPERTIES } from './core/constants/data';
 import SearchCard from '~/components/search/card';
 
 const Search = () => {
