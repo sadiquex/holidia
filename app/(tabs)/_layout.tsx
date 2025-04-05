@@ -5,6 +5,7 @@ import { colours } from '../core/theme/colours';
 import { TabBarIcon } from '~/components/tab-bar-icon';
 
 export default function TabLayout() {
+  // we could have made this reusable but let's maintain it this way for learning purposes.
   return (
     <Tabs
       screenOptions={{
@@ -13,9 +14,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
+          title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="albums" color={color} />,
-          tabBarShowLabel: false,
+          // tabBarShowLabel: false,
           headerShown: false,
         }}
       />
@@ -24,7 +25,6 @@ export default function TabLayout() {
         options={{
           title: 'Favourites',
           tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
-          tabBarShowLabel: false,
           headerShown: false,
         }}
       />
@@ -33,7 +33,6 @@ export default function TabLayout() {
         options={{
           title: 'Bookings',
           tabBarIcon: ({ color }) => <TabBarIcon name="calendar-clear" color={color} />,
-          tabBarShowLabel: false,
           headerShown: false,
         }}
       />
@@ -42,7 +41,6 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
-          tabBarShowLabel: false,
           headerShown: false,
         }}
       />

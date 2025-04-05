@@ -31,7 +31,7 @@ const CarouselItem = ({ property }: Props) => {
     <>
       <Carousel
         ref={carouselRef}
-        width={WIDTH - 32}
+        width={WIDTH - 32} // screen width - padding
         height={320}
         data={property.images}
         scrollAnimationDuration={1400}

@@ -1,0 +1,60 @@
+# Cursor AI Rules
+
+# Code Style
+
+- Follow TypeScript best practices
+- Use functional components with hooks
+- Prefer named exports over default exports
+- Use proper TypeScript types and interfaces
+- Follow React Native best practices
+
+# File Organization
+
+- Keep components in the components directory
+- Keep screens in the app directory
+- Keep styles in the theme directory
+- Keep utilities in the utils directory
+
+# Naming Conventions
+
+- Use PascalCase for component names
+- Use camelCase for functions and variables
+- Use UPPER_SNAKE_CASE for constants
+- Use kebab-case for file names
+
+# Documentation
+
+- Add JSDoc comments for complex functions
+- Document component props with TypeScript interfaces
+- Add comments for complex logic
+- Keep comments up to date with code changes
+- Write all comments in lowercase
+- Keep comments concise and to the point
+
+# Testing
+
+- Write unit tests for complex logic
+- Test components in isolation
+- Use proper test descriptions
+- Follow testing best practices
+
+# Security
+
+- Never expose API keys or sensitive data
+- Use environment variables for configuration
+- Follow security best practices
+- Validate user input
+
+# Performance
+
+- Optimize render performance
+- Use proper memoization
+- Avoid unnecessary re-renders
+- Follow React Native performance best practices
+
+# Accessibility
+
+- Add proper accessibility labels
+- Support screen readers
+- Follow WCAG guidelines
+- Test with accessibility tools

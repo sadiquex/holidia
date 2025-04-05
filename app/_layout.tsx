@@ -23,6 +23,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
 };
 
 export default function RootLayout() {
+  // stack is the main navigation in the app
   return (
     <Providers>
       <Stack>

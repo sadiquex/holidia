@@ -1,4 +1,5 @@
-import { FlatList } from 'react-native';
+import { useState } from 'react';
+import { FlatList, RefreshControl } from 'react-native';
 
 import { PROPERTIES } from '../core/constants/data';
 
@@ -8,17 +9,34 @@ import Discovery from '~/components/home/discovery';
 import MainHeader from '~/components/home/main-header';
 
 export default function Home() {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    // Simulate API call
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  };
+
   return (
     <Container>
       <MainHeader />
 
       <FlatList
         data={PROPERTIES}
-        renderItem={({ item }) => <Card property={item} />}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<Discovery properties={PROPERTIES} />}
+        renderItem={({ item }) => <Card property={item} />} // render each item in the list
+        keyExtractor={(item) => item.id} // unique key for each item
+        showsVerticalScrollIndicator={false} // hide the scroll indicator
+        ListHeaderComponent={<Discovery properties={PROPERTIES} />} // show on top of the list
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
     </Container>
   );
 }
+
+// Home screen
+// - MainHeader
+// - Discovery
+// - Card
+// - FlatList
