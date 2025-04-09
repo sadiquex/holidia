@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
 import { PROPERTIES } from '../core/constants/data';
@@ -10,6 +11,13 @@ import MainHeader from '~/components/home/main-header';
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/welcome');
+    }, 3000);
+  }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
