@@ -3,7 +3,7 @@ import '../global.css';
 import { Stack } from 'expo-router';
 import { ReactNode } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { BottomSheetModal, BottomSheetView, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 import theme from './core/theme/use-theme-config';
 

@@ -24,9 +24,6 @@
 - **expo-system-ui**: System UI management utilities
 - **expo-web-browser**: System browser integration
 - **nativewind**: Tailwind CSS for React Native styling
-- **react**: Core React library
-- **react-dom**: React web renderer
-- **react-native**: Core React Native framework
 - **react-native-flexible-grid**: Responsive grid layout system
 - **react-native-gesture-handler**: Native gesture recognition
 - **react-native-image-colors**: Image color extraction
@@ -39,19 +36,6 @@
 - **react-native-web**: Web platform support
 - **tailwind-merge**: Tailwind class merging utility
 - **zustand**: Lightweight state management
-
-### Development Dependencies
-
-- **@babel/core**: JavaScript compiler
-- **@types/react**: React TypeScript types
-- **@typescript-eslint/eslint-plugin**: TypeScript ESLint rules
-- **@typescript-eslint/parser**: TypeScript ESLint parser
-- **eslint**: JavaScript/TypeScript linter
-- **eslint-config-universe**: Expo ESLint configuration
-- **prettier**: Code formatter
-- **prettier-plugin-tailwindcss**: Tailwind CSS formatting
-- **tailwindcss**: Utility-first CSS framework
-- **typescript**: TypeScript support
 
 ## Scripts
 

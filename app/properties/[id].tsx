@@ -3,17 +3,15 @@ import BottomSheet, {
   BottomSheetView,
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
-  BottomSheetFlashList,
 } from '@gorhom/bottom-sheet';
-import { Calendar, toDateId } from '@marceloterreiro/flash-calendar';
-// import Calendar from '@marceloterreiro/flash-calendar';
-import { FlashList } from '@shopify/flash-list';
+import { Calendar, CalendarTheme, toDateId, useDateRange } from '@marceloterreiro/flash-calendar';
 import { useLocalSearchParams } from 'expo-router';
 import { SquircleButton } from 'expo-squircle-view';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { PROPERTIES } from '../core/constants/data';
+import { calendarTheme } from '../core/theme/calendar-theme';
 import { colours } from '../core/theme/colours';
 
 import { Container } from '~/components/container';
@@ -22,21 +20,15 @@ import Amenities from '~/components/property/amenities';
 import PropertyImage from '~/components/property/property-image';
 import Text from '~/components/text';
 
-const SafeFlashList = Platform.select({
-  ios: FlashList,
-  android: BottomSheetFlashList as any,
-});
-
 const today = toDateId(new Date());
 
 const PropertyDetails = () => {
   const { id } = useLocalSearchParams();
   const property = PROPERTIES.find((property) => property.id === id);
 
-  const [selectedDate, setSelectedDate] = useState(today);
-
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['60%'], []);
+  const { calendarActiveDateRanges, onCalendarDayPress } = useDateRange();
 
   const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => {
     return (
@@ -82,8 +74,11 @@ const PropertyDetails = () => {
       <BottomSheet
         snapPoints={snapPoints}
         ref={bottomSheetRef}
+        enableDynamicSizing={false}
+        enablePanDownToClose
+        backdropComponent={renderBackdrop}
         style={{ flex: 1, zIndex: 100 }}
-        backdropComponent={renderBackdrop}>
+        index={-1}>
         <BottomSheetView style={{ flex: 1 }}>
           <Text variant="body" className="text-center">
             Price
@@ -91,22 +86,32 @@ const PropertyDetails = () => {
 
           <BottomSheetView style={{ flex: 1, minHeight: 300 }}>
             <Calendar
-              calendarActiveDateRanges={[
-                {
-                  startId: selectedDate,
-                  endId: selectedDate,
-                },
-              ]}
+              calendarActiveDateRanges={calendarActiveDateRanges}
               calendarMonthId={today}
-              onCalendarDayPress={setSelectedDate}
-              // SafeFlashList
+              onCalendarDayPress={onCalendarDayPress}
+              theme={calendarTheme as CalendarTheme}
             />
           </BottomSheetView>
+          <SquircleButton
+            backgroundColor={colours.PRIMARY}
+            className="m-8 my-6 flex flex-row items-center justify-center gap-2"
+            preserveSmoothing
+            style={{
+              paddingVertical: 12,
+              borderRadius: 24,
+            }}
+            onPress={() => bottomSheetRef.current?.close()}>
+            <Ionicons name="checkmark-circle" size={20} color="white" />
+            <Text variant="button" className="text-center">
+              Confirm
+            </Text>
+          </SquircleButton>
         </BottomSheetView>
       </BottomSheet>
 
-      <View className="-z-10 mx-4 flex flex-row items-center justify-center">
+      <View className="-z-10 mx-4 my-4 flex flex-row items-center justify-center">
         <SquircleButton
+          onPress={() => bottomSheetRef.current?.expand()}
           className="flex-grow"
           borderRadius={16}
           backgroundColor={colours.PRIMARY}
