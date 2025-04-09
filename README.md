@@ -49,3 +49,7 @@
 - `lint`: Run code quality checks
 - `format`: Format code
 - `web`: Start web version
+
+##
+
+- Continue at Section 13 (Authentication UI module)
