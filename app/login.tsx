@@ -8,14 +8,16 @@ import { colours } from './core/theme/colours';
 import { Container } from '~/components/container';
 import Header from '~/components/header';
 import CustomText from '~/components/text';
+import { useRouter } from 'expo-router';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleLogin = () => {
-    console.log('login');
+    router.push('/');
   };
 
   return (

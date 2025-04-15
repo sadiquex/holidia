@@ -12,7 +12,8 @@
     "prebuild": "expo prebuild",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
@@ -41,6 +42,7 @@
     "react-native-flexible-grid": "^0.2.3",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-image-colors": "^2.4.0",
+    "react-native-mmkv": "^3.2.0",
     "react-native-reanimated": "~3.16.1",
     "react-native-reanimated-carousel": "^4.0.2",
     "react-native-safe-area-context": "4.12.0",
@@ -48,16 +50,19 @@
     "react-native-squircle": "^1.1.0",
     "react-native-svg": "15.8.0",
     "react-native-web": "~0.19.10",
+    "strip-ansi": "^6.0.1",
     "tailwind-merge": "^3.0.2",
-    "zustand": "^4.5.1"
+    "zustand": "^4.5.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@react-native-community/cli": "latest",
     "@types/react": "~18.3.12",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "eslint": "^8.57.0",
     "eslint-config-universe": "^12.0.1",
+    "husky": "^9.1.7",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.0",
@@ -67,5 +72,8 @@
     "extends": "universe/native",
     "root": true
   },
-  "private": true
+  "private": true,
+  "resolutions": {
+    "strip-ansi": "6.0.1"
+  }
 }

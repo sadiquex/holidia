@@ -7,9 +7,11 @@ import { colours } from './core/theme/colours';
 import { Container } from '~/components/container';
 import Header from '~/components/header';
 import CustomText from '~/components/text';
+import { useRouter } from 'expo-router';
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   // name, email and password states
   const [name, setName] = useState('');
@@ -18,7 +20,8 @@ const SignUp = () => {
 
   // handle sign up
   const handleRegister = () => {
-    console.log('sign up');
+    // navigate to home
+    router.push('/');
   };
 
   return (
