@@ -13,11 +13,11 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    setTimeout(() => {
-      router.push('/welcome');
-    }, 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     router.push('/welcome');
+  //   }, 3000);
+  // }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
