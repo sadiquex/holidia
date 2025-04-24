@@ -1,11 +1,13 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
 import '../global.css';
 import { Stack } from 'expo-router';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
+import { APIProvider } from './core/api/api-provider';
 import theme from './core/theme/use-theme-config';
+import { logApiUrl } from './core/utils/log';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -13,11 +15,17 @@ export const unstable_settings = {
 };
 
 const Providers = ({ children }: { children: ReactNode }) => {
+  useEffect(() => {
+    logApiUrl();
+  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <ThemeProvider value={theme}>{children}</ThemeProvider>
-      </BottomSheetModalProvider>
+      <APIProvider>
+        <ThemeProvider value={theme}>
+          <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+        </ThemeProvider>
+      </APIProvider>
     </GestureHandlerRootView>
   );
 };

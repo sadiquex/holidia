@@ -8,10 +8,23 @@ import { Container } from '~/components/container';
 import Card from '~/components/home/card';
 import Discovery from '~/components/home/discovery';
 import MainHeader from '~/components/home/main-header';
+import { useQuery } from '@tanstack/react-query';
+import { client } from '../core/api/client';
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
+
+  const { data } = useQuery({
+    queryKey: ['properties-list'],
+    queryFn: async () => {
+      const { data } = await client.get('/properties-list');
+
+      return data;
+    },
+  });
+
+  console.log('🚀 ~ Home ~ data:', data);
 
   // useEffect(() => {
   //   setTimeout(() => {
