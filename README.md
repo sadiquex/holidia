@@ -51,5 +51,3 @@
 - `web`: Start web version
 
 ##
-
-- Continue at Section 13 (Authentication UI module)

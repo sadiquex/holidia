@@ -1,15 +1,15 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 
+import { client } from '../core/api/client';
 import { PROPERTIES } from '../core/constants/data';
 
 import { Container } from '~/components/container';
 import Card from '~/components/home/card';
 import Discovery from '~/components/home/discovery';
 import MainHeader from '~/components/home/main-header';
-import { useQuery } from '@tanstack/react-query';
-import { client } from '../core/api/client';
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
