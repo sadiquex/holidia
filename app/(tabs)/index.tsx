@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 
 import { client } from '../core/api/client';
 import { PROPERTIES } from '../core/constants/data';
@@ -10,27 +10,13 @@ import { Container } from '~/components/container';
 import Card from '~/components/home/card';
 import Discovery from '~/components/home/discovery';
 import MainHeader from '~/components/home/main-header';
+import axios from 'axios';
+import CustomText from '~/components/text';
+import LoadingIndicator from '~/components/loading-indicator';
 
 export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
-
-  const { data } = useQuery({
-    queryKey: ['properties-list'],
-    queryFn: async () => {
-      const { data } = await client.get('/properties-list');
-
-      return data;
-    },
-  });
-
-  console.log('🚀 ~ Home ~ data:', data);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     router.push('/welcome');
-  //   }, 3000);
-  // }, []);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -39,6 +25,18 @@ export default function Home() {
       setRefreshing(false);
     }, 2000);
   };
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['properties'],
+    queryFn: async () => {
+      const response = await client.get('/properties');
+      return response.data.properties;
+    },
+  });
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <Container>

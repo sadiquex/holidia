@@ -2,6 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { SquircleView } from 'expo-squircle-view';
 import { View } from 'react-native';
 
+import useAuth from '../core/auth';
 import { colours } from '../core/theme/colours';
 import { User } from '../core/types';
 
@@ -9,6 +10,7 @@ import { Container } from '~/components/container';
 import Header from '~/components/header';
 import ImageWithSquircle from '~/components/image-with-squircle';
 import CustomText from '~/components/text';
+import { router } from 'expo-router';
 
 const user: User = {
   id: '',
@@ -24,13 +26,18 @@ const user: User = {
 };
 
 const Profile = () => {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <Header
         title="Profile"
         headerAction={{
           name: 'log-out',
-          onPress: () => console.log('Logout'),
+          onPress: () => {
+            router.push('/login');
+            signOut();
+          },
         }}
       />
 

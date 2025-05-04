@@ -1,23 +1,38 @@
 // generate login screen
+import { useRouter } from 'expo-router';
 import { SquircleButton } from 'expo-squircle-view';
 import { useState } from 'react';
 import { ActivityIndicator, Image, TextInput, View } from 'react-native';
 
+import { client } from './core/api/client';
+import useAuth from './core/auth';
 import { colours } from './core/theme/colours';
 
 import { Container } from '~/components/container';
 import Header from '~/components/header';
 import CustomText from '~/components/text';
-import { useRouter } from 'expo-router';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { signIn } = useAuth();
 
-  const handleLogin = () => {
-    router.push('/');
+  const handleLogin = async () => {
+    try {
+      const response = await client.post('/users/login', {
+        email,
+        password,
+      });
+
+      signIn({
+        access: response.data.token,
+      });
+      router.push('/');
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   return (
