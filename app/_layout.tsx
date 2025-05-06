@@ -6,6 +6,8 @@ import { ReactNode, useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { APIProvider } from './core/api/api-provider';
+import { AuthGuard } from './core/auth/auth-guard';
+import { hydrateAuth } from './core/auth';
 import theme from './core/theme/use-theme-config';
 import { logApiUrl } from './core/utils/log';
 
@@ -17,13 +19,17 @@ export const unstable_settings = {
 const Providers = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     logApiUrl();
+    // initialize auth state on app launch
+    hydrateAuth();
   }, []);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <APIProvider>
         <ThemeProvider value={theme}>
-          <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+          <BottomSheetModalProvider>
+            <AuthGuard>{children}</AuthGuard>
+          </BottomSheetModalProvider>
         </ThemeProvider>
       </APIProvider>
     </GestureHandlerRootView>

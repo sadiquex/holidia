@@ -1,22 +1,41 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { BlurView } from 'expo-blur';
+import { router } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
 import CarouselItem from './carousel-item';
 
+import { useToggleFavourite } from '~/app/core/hooks/use-toggle-favourite';
 import { Property } from '~/app/core/types';
 import Text from '~/components/text';
-
 type Props = {
   property: Property;
 };
 const Card = ({ property }: Props) => {
+  // implement favourite toggle
+  const { mutate: toggleFavourite } = useToggleFavourite();
+
+  const handleToggleFavourite = () => {
+    toggleFavourite({
+      propertyId: property.id,
+      currentFavouriteStatus: property.is_favorite,
+    });
+  };
+
   return (
     <View className="border-b border-gray-200 p-4">
       <View className="relative">
-        <View>
+        <Pressable
+          onPress={() =>
+            router.push({
+              pathname: '/properties/[id]',
+              params: {
+                id: property.id,
+              },
+            })
+          }>
           <CarouselItem property={property} />
-        </View>
+        </Pressable>
 
         <View>
           <BlurView
@@ -25,7 +44,7 @@ const Card = ({ property }: Props) => {
             <Ionicons name="star" size={24} color="#facc15" />
             <Text className="mx-2 text-white">5</Text>
           </BlurView>
-          <Pressable className="absolute bottom-4 right-4">
+          <Pressable className="absolute bottom-4 right-4" onPress={handleToggleFavourite}>
             <BlurView intensity={100} className="overflow-hidden rounded-2xl p-2">
               <Ionicons
                 name={property.is_favorite ? 'heart' : 'heart-outline'}

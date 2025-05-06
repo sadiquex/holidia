@@ -1,4 +1,3 @@
-// generate login screen
 import { useRouter } from 'expo-router';
 import { SquircleButton } from 'expo-squircle-view';
 import { useState } from 'react';
@@ -16,11 +15,20 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { signIn } = useAuth();
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
     try {
+      setError(null);
+      setIsLoading(true);
+
       const response = await client.post('/users/login', {
         email,
         password,
@@ -29,9 +37,14 @@ const Login = () => {
       signIn({
         access: response.data.token,
       });
-      router.push('/');
-    } catch (error) {
+      router.replace('/');
+    } catch (error: any) {
       console.error('Login error:', error);
+      setError(
+        error.response?.data?.message || 'An error occurred during login. Please try again.'
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,20 +63,35 @@ const Login = () => {
             Welcome back
           </CustomText>
 
+          {error && (
+            <CustomText variant="body" className="text-red-500">
+              {error}
+            </CustomText>
+          )}
+
           <TextInput
             placeholder="Email"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={(text) => {
+              setEmail(text);
+              setError(null);
+            }}
             className="w-full rounded-xl border border-gray-300 bg-gray-100 px-2 py-4"
             autoCapitalize="none"
+            keyboardType="email-address"
+            editable={!isLoading}
           />
           <TextInput
             placeholder="Password"
             value={password}
-            onChangeText={setPassword}
+            onChangeText={(text) => {
+              setPassword(text);
+              setError(null);
+            }}
             className="w-full rounded-xl border border-gray-300 bg-gray-100 px-2 py-4"
             autoCapitalize="none"
             secureTextEntry
+            editable={!isLoading}
           />
 
           <SquircleButton
@@ -72,9 +100,11 @@ const Login = () => {
             cornerSmoothing={100}
             borderRadius={16}
             onPress={handleLogin}
+            disabled={isLoading}
             style={{
               backgroundColor: colours.PRIMARY,
               paddingVertical: 16,
+              opacity: isLoading ? 0.7 : 1,
             }}>
             {isLoading ? (
               <ActivityIndicator color="white" />

@@ -5,30 +5,38 @@ import BottomSheet, {
   BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet';
 import { Calendar, CalendarTheme, toDateId, useDateRange } from '@marceloterreiro/flash-calendar';
+import { useQuery } from '@tanstack/react-query';
 import { differenceInDays } from 'date-fns';
 import { router, useLocalSearchParams } from 'expo-router';
 import { SquircleButton } from 'expo-squircle-view';
 import { nanoid } from 'nanoid/non-secure';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { ScrollView, View } from 'react-native';
 
-import { PROPERTIES } from '../core/constants/data';
+import { client } from '../core/api/client';
 import useShoppingCartStore from '../core/store';
 import { calendarTheme } from '../core/theme/calendar-theme';
 import { colours } from '../core/theme/colours';
-import { ICartItem } from '../core/types';
+import { ICartItem, Property } from '../core/types';
 
 import { Container } from '~/components/container';
 import Header from '~/components/header';
+import LoadingIndicator from '~/components/loading-indicator';
 import Amenities from '~/components/property/amenities';
 import PropertyImage from '~/components/property/property-image';
 import Text from '~/components/text';
-
 const today = toDateId(new Date());
 
 const PropertyDetails = () => {
   const { id } = useLocalSearchParams();
-  const property = PROPERTIES.find((property) => property.id === id);
+
+  const { data: property, isLoading } = useQuery<Property>({
+    queryKey: ['property' + id],
+    queryFn: async () => {
+      const { data } = await client.get(`/properties/${id}`);
+      return data.property;
+    },
+  });
 
   const { addItem } = useShoppingCartStore();
 
@@ -60,6 +68,8 @@ const PropertyDetails = () => {
   };
 
   const hasSelectedDays = Boolean(calendarActiveDateRanges[0]?.startId);
+
+  if (isLoading) return <LoadingIndicator />;
 
   return (
     <Container>
