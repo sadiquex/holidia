@@ -1,32 +1,55 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useQuery } from '@tanstack/react-query';
+import { router } from 'expo-router';
 import { SquircleView } from 'expo-squircle-view';
 import { View } from 'react-native';
 
+import { client } from '../core/api/client';
 import useAuth from '../core/auth';
 import { colours } from '../core/theme/colours';
-import { User } from '../core/types';
 
 import { Container } from '~/components/container';
 import Header from '~/components/header';
 import ImageWithSquircle from '~/components/image-with-squircle';
+import LoadingIndicator from '~/components/loading-indicator';
 import CustomText from '~/components/text';
-import { router } from 'expo-router';
 
-const user: User = {
-  id: '',
-  name: '',
-  email: 'abubaka@gmail.com',
-  username: 'user',
-  avatar:
-    'https://images.pexels.com/photos/18166547/pexels-photo-18166547/free-photo-of-back-view-of-woman-in-black-dress-on-sea-shore.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load',
-  bookings: [],
-  created_at: '',
-  password: '',
-  properties: null,
+type UserStats = {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+  favoritePropertiesCount: number;
+  bookingsCount: number;
+};
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
 };
 
 const Profile = () => {
   const { signOut } = useAuth();
+
+  const { data: user, isLoading } = useQuery<User>({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const response = await client.get('/users/me');
+      return response.data.user;
+    },
+  });
+
+  const { data: userStats } = useQuery<UserStats>({
+    queryKey: ['user-stats'],
+    queryFn: async () => {
+      const response = await client.get('/users/stats');
+      return response.data.stats;
+    },
+  });
+
+  if (isLoading) return <LoadingIndicator />;
 
   return (
     <Container>
@@ -42,15 +65,20 @@ const Profile = () => {
       />
 
       <View className="flex flex-row items-center justify-center">
-        <ImageWithSquircle image={user.avatar} width={256} height={256} borderRadius={48} />
+        <ImageWithSquircle
+          image={user?.image || 'https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d'}
+          width={256}
+          height={256}
+          borderRadius={48}
+        />
       </View>
 
       <View className="flex items-center justify-center pt-4">
         <CustomText variant="body" className="text-center">
-          {user.email}
+          {user?.email}
         </CustomText>
         <CustomText variant="body" className="text-center">
-          @{user.username}
+          @{user?.name}
         </CustomText>
       </View>
 
@@ -59,17 +87,17 @@ const Profile = () => {
           {
             icon: 'stats-chart',
             title: 'Trips',
-            count: 4,
+            count: userStats?.bookingsCount,
           },
           {
             icon: 'stats-chart',
             title: 'Favourite',
-            count: 1,
+            count: userStats?.favoritePropertiesCount,
           },
           {
             icon: 'albums',
             title: 'Albums',
-            count: 4,
+            count: userStats?.favoritePropertiesCount,
           },
         ].map((card, i) => (
           <View key={i} className="">
