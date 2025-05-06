@@ -27,6 +27,7 @@
     "@shopify/flash-list": "1.7.3",
     "@shopify/react-native-skia": "1.5.0",
     "@tanstack/react-query": "^5.74.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.9.0",
     "date-fns": "^4.1.0",
     "expo": "^52.0.37",
@@ -56,6 +57,7 @@
     "react-native-squircle": "^1.1.0",
     "react-native-svg": "15.8.0",
     "react-native-web": "~0.19.10",
+    "sonner-native": "^0.19.0",
     "strip-ansi": "^6.0.1",
     "tailwind-merge": "^3.0.2",
     "zustand": "^4.5.6"

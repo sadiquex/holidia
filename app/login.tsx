@@ -1,14 +1,14 @@
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import { SquircleButton } from 'expo-squircle-view';
 import { useState } from 'react';
 import { ActivityIndicator, Image, TextInput, View } from 'react-native';
+import { toast } from 'sonner-native';
 
 import { client } from './core/api/client';
 import useAuth from './core/auth';
 import { colours } from './core/theme/colours';
 
 import { Container } from '~/components/container';
-import Header from '~/components/header';
 import CustomText from '~/components/text';
 
 const Login = () => {
@@ -37,6 +37,7 @@ const Login = () => {
       signIn({
         access: response.data.token,
       });
+      toast.success('Logged in successfully');
       router.replace('/');
     } catch (error: any) {
       console.error('Login error:', error);
@@ -50,7 +51,7 @@ const Login = () => {
 
   return (
     <Container>
-      <Header title="Login" />
+      {/* <Header title="Login" /> */}
 
       <View className="flex-1 p-4">
         <View className="mt-24 flex items-center justify-center gap-4">
@@ -114,6 +115,14 @@ const Login = () => {
               </CustomText>
             )}
           </SquircleButton>
+
+          {/* sign up text */}
+          <CustomText variant="body" className="text-center">
+            Don't have an account?{' '}
+            <Link href="/signup" className="text-primary">
+              Sign up
+            </Link>
+          </CustomText>
         </View>
       </View>
     </Container>

@@ -4,10 +4,11 @@ import '../global.css';
 import { Stack } from 'expo-router';
 import { ReactNode, useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Toaster } from 'sonner-native';
 
 import { APIProvider } from './core/api/api-provider';
-import { AuthGuard } from './core/auth/auth-guard';
 import { hydrateAuth } from './core/auth';
+import { AuthGuard } from './core/auth/auth-guard';
 import theme from './core/theme/use-theme-config';
 import { logApiUrl } from './core/utils/log';
 
@@ -29,6 +30,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <ThemeProvider value={theme}>
           <BottomSheetModalProvider>
             <AuthGuard>{children}</AuthGuard>
+            <Toaster />
           </BottomSheetModalProvider>
         </ThemeProvider>
       </APIProvider>
