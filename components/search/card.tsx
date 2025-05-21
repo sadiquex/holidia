@@ -35,7 +35,7 @@ const SearchCard = ({ property }: Props) => {
       <View className="px-2">
         <View className="flex-row items-center">
           <CustomText variant="body" className="text-center">
-            {property.name} ,{property.country}
+            {property.name} ,{property.country}, {property.city}
           </CustomText>
         </View>
       </View>

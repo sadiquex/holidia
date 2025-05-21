@@ -9,7 +9,7 @@ import { client } from './core/api/client';
 import { Container } from '~/components/container';
 import Header from '~/components/header';
 import LoadingIndicator from '~/components/loading-indicator';
-import Card from '~/components/search/card';
+import SearchCard from '~/components/search/card';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -49,7 +49,7 @@ const Search = () => {
 
       <FlatList
         data={properties}
-        renderItem={({ item }) => <Card property={item} />}
+        renderItem={({ item }) => <SearchCard property={item} />}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={isLoading ? <LoadingIndicator /> : null}
       />

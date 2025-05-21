@@ -1,7 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useQuery } from '@tanstack/react-query';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { SquircleView } from 'expo-squircle-view';
+import { useCallback } from 'react';
 import { View } from 'react-native';
 
 import { client } from '../core/api/client';
@@ -41,13 +42,21 @@ const Profile = () => {
     },
   });
 
-  const { data: userStats } = useQuery<UserStats>({
+  const { data: userStats, refetch } = useQuery<UserStats>({
     queryKey: ['user-stats'],
     queryFn: async () => {
       const response = await client.get('/users/stats');
       return response.data.stats;
     },
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+      // queryClient.invalidateQueries({ queryKey: ['user'] });
+      // queryClient.invalidateQueries({ queryKey: ['user-stats'] });
+    }, [refetch])
+  );
 
   if (isLoading) return <LoadingIndicator />;
 

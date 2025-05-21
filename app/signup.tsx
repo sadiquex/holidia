@@ -31,20 +31,26 @@ const SignUp = () => {
 
     setIsLoading(true);
 
-    // make a mutation to /users/ with name, email and password
-    const response = await client.post('/users/', { name, email, password });
-    console.log(response.data);
-    toast.success('Account created successfully');
-    setIsLoading(false);
+    try {
+      // make a mutation to /users/ with name, email and password
+      const response = await client.post('/users/', { name, email, password });
+      console.log(response.data);
+      toast.success('Account created successfully');
+      setIsLoading(false);
 
-    // log the user in after sign up
-    const loginResponse = await client.post('/users/login', { email, password });
-    console.log(loginResponse.data);
-    signIn({
-      access: loginResponse.data.token,
-    });
-    toast.success('Logged in successfully');
-    router.replace('/');
+      // log the user in after sign up
+      const loginResponse = await client.post('/users/login', { email, password });
+      console.log(loginResponse.data);
+      signIn({
+        access: loginResponse.data.token,
+      });
+      toast.success('Logged in successfully');
+      router.replace('/');
+    } catch (error) {
+      console.log(error);
+      setError('Something went wrong');
+      setIsLoading(false);
+    }
   };
 
   return (
