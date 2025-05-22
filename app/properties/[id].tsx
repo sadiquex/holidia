@@ -11,7 +11,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { SquircleButton } from 'expo-squircle-view';
 import { nanoid } from 'nanoid/non-secure';
 import { useCallback, useMemo, useRef } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { client } from '../core/api/client';
 import useShoppingCartStore from '../core/store';
@@ -58,16 +58,18 @@ const PropertyDetails = () => {
   if (!property) return null;
 
   const calculateDays = () => {
-    if (!calendarActiveDateRanges[0].startId) return 0;
-    if (!calendarActiveDateRanges[0].endId) return 1;
+    if (!calendarActiveDateRanges[0]?.startId) return 0;
+    if (!calendarActiveDateRanges[0]?.endId) return 1;
 
-    const startDate = new Date(calendarActiveDateRanges[0].startId);
-    const endDate = new Date(calendarActiveDateRanges[0].endId);
+    const startDate = new Date(calendarActiveDateRanges[0]?.startId);
+    const endDate = new Date(calendarActiveDateRanges[0]?.endId);
 
     return differenceInDays(endDate, startDate) + 1;
   };
 
   const hasSelectedDays = Boolean(calendarActiveDateRanges[0]?.startId);
+  const days = calculateDays();
+  const totalPrice = days * property.price_per_night;
 
   if (isLoading) return <LoadingIndicator />;
 
@@ -82,15 +84,22 @@ const PropertyDetails = () => {
           isFavorite={property.is_favorite}
         />
 
-        <Text variant="subtitle-primary" className="mt-4 ">
-          {property.name}
-        </Text>
+        <View className="my-4 flex flex-row justify-between">
+          <View>
+            <Text variant="subtitle-primary">{property.name}</Text>
 
-        <View className="my-1 flex flex-row items-center">
-          <Ionicons name="location" size={16} color={colours.PRIMARY} />
-          <Text variant="body-primary" className="text-center">
-            {property.city}, {property.country}
-          </Text>
+            <View className="flex flex-row items-center">
+              <Ionicons name="location" size={16} color={colours.PRIMARY} />
+              <Text variant="body-primary" className="text-center">
+                {property.city}, {property.country}
+              </Text>
+            </View>
+          </View>
+
+          <View className="flex flex-row items-center justify-center gap-2">
+            <Ionicons name="pricetag" size={16} color={colours.PRIMARY} />
+            <Text variant="subtitle-primary">${property.price_per_night}</Text>
+          </View>
         </View>
 
         <Text variant="body" className="text-gray-700">
@@ -108,9 +117,16 @@ const PropertyDetails = () => {
         style={{ flex: 1, zIndex: 100 }}
         index={-1}>
         <BottomSheetView style={{ flex: 1 }}>
-          <Text variant="body" className="text-center">
+          <View className="my-4 flex flex-row items-center justify-center gap-2">
+            <Ionicons name="wallet" size={24} color={colours.PRIMARY} />
+            <Text variant="subtitle" className="text-center">
+              ${hasSelectedDays ? totalPrice : property.price_per_night}{' '}
+              {!hasSelectedDays && 'per night'}
+            </Text>
+          </View>
+          {/* <Text variant="body" className="text-center">
             Price
-          </Text>
+          </Text> */}
 
           <BottomSheetView style={{ flex: 1, minHeight: 300 }}>
             <Calendar
@@ -147,12 +163,12 @@ const PropertyDetails = () => {
                 property,
                 startDate: calendarActiveDateRanges[0]?.startId,
                 endDate: calendarActiveDateRanges[0]?.endId ?? calendarActiveDateRanges[0]?.startId,
-                days: calculateDays(),
+                days,
               };
               console.log('🚀 ~ PropertyDetails ~ cartItem:', cartItem);
 
               addItem(cartItem);
-              router.push('/checkout');
+              bottomSheetRef.current?.close();
             }}>
             <Ionicons name="checkmark-circle" size={20} color="white" />
             <Text variant="button" className="text-center">
@@ -163,8 +179,33 @@ const PropertyDetails = () => {
       </BottomSheet>
 
       <View className="-z-10 mx-4 my-4 flex flex-row items-center justify-center">
+        {hasSelectedDays ? (
+          <Pressable
+            onPress={() => bottomSheetRef.current?.expand()}
+            className="mr-4 flex flex-1 flex-grow items-center gap-2">
+            <View className="flex flex-row items-center justify-center">
+              <Ionicons name="pricetag" color={colours.PRIMARY} />
+              <Text variant="body" className="text-center">
+                ${totalPrice}
+              </Text>
+            </View>
+            <Text variant="caption" className="text-center underline">
+              {days === 1 ? '1 night' : `${days} nights`}
+            </Text>
+          </Pressable>
+        ) : (
+          <Pressable
+            onPress={() => bottomSheetRef.current?.expand()}
+            className="mr-4 flex flex-1 flex-grow flex-row items-center gap-2">
+            <Ionicons name="calendar" color={colours.PRIMARY} size={20} />
+            <Text variant="body-primary" className="text-center underline">
+              Select dates
+            </Text>
+          </Pressable>
+        )}
+
         <SquircleButton
-          onPress={() => bottomSheetRef.current?.expand()}
+          onPress={() => router.push('/checkout')}
           className="flex-grow"
           borderRadius={16}
           backgroundColor={colours.PRIMARY}
